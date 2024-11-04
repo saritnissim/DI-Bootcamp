@@ -34,5 +34,8 @@ for char in usr_str:
     print(result)
 
 
-
 # 4. Bonus: Swap some characters around then print the newly jumbled string (hint: look into the shuffle method). For example:
+import random
+usr_str_list = list(usr_str)
+random.shuffle(usr_str_list)
+print("".join(usr_str_list))
