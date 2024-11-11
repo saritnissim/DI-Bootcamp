@@ -42,7 +42,7 @@ class Farm:
 # Expand The Farm
 
 #     Add a method called get_animal_types to the Farm class. This method should return a sorted list of all the animal types (names) in the farm. With the example above, the list should be: ['cow', 'goat', 'sheep'].
-    def get_animal(self):
+    def get_animal_types(self):
         sorted_animals  = sorted(self.farm_animals.keys())
         return sorted_animals
 
@@ -68,3 +68,4 @@ macdonald.add_animal('sheep')
 macdonald.add_animal('goat', 12)
 print(macdonald.get_info())
 print(macdonald.get_short_info())
+print(macdonald.get_animal_types())
