@@ -1,0 +1,95 @@
+# Instructions :
+
+# The goal of the exercise is to create a class that will help you analyze a specific text. A text can be just a simple string, like “Today, is a happy day” or it can be an external text file.
+
+
+# Part I
+
+# First, we will analyze a simple string, like “A good book would sometimes cost as much as a good house.”
+
+#     Create a class called Text that takes a string as an argument and store the text in a attribute.
+
+#     Hint: You need to manually copy-paste the text, straight into the code
+
+#     Implement the following methods:
+#         a method to return the frequency of a word in the text (assume words are separated by whitespace) return None or a meaningful message.
+#         a method that returns the most common word in the text.
+#         a method that returns a list of all the unique words in the text.
+from collections import Counter
+
+
+class Text:
+    def __init__(self, data):
+        self.words = data.lower().split()
+        self.word_frequency = Counter(self.words)
+
+    
+    def get_word_frequency(self, word: str):
+        # Return the frequency of a word in the text
+        word = word.lower()  # Ensure the word is in lowercase for case-insensitive comparison
+        if word not in self.words:
+            return f"The word '{word}' is not in the text."
+        return self.word_frequency.get(word)
+    
+    def most_common_word(self):
+        # Return the most common word(s) in the text
+        if not self.words:
+            return None
+        
+        # Find the maximum frequency
+        max_count = max(self.word_frequency.values())
+        
+        # Find all words with that maximum frequency
+        most_common_words = [word for word, count in self.word_frequency.items() if count == max_count]
+        
+        return most_common_words
+
+    def unique_words(self):
+        return [word for word, count in self.word_frequency.items() if count == 1]
+        
+
+# Part II
+
+# Then, we will analyze a text coming from an external text file. Download the_stranger.txt file.
+
+#     Implement a classmethod that returns a Text instance but with a text file:
+    @classmethod
+    def from_file(cls, file_path: str):
+        # Class method to create a Text instance from a file
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                text = file.read()
+            return cls(text)
+        except FileNotFoundError:
+            return f"File not found: {file_path}"
+
+
+
+#     Hint: You need to open and read the text from the text file.
+
+#     Now, use the provided the_stranger.txt file and try using the class you created above.
+
+
+# Bonus:
+
+#     Create a class called TextModification that inherits from Text.
+
+#     Implement the following methods:
+#         a method that returns the text without any punctuation.
+#         a method that returns the text without any english stop-words (check out what this is !!).
+#         a method that returns the text without any special characters.
+
+# Note: Instead of creating a child class, you could also implements those methods as static methods in the Text class.
+
+# Note: Feel free to implement/create any attribute, method or function needed to make this work, be creative :)
+    
+text = "A good book would sometimes cost as much as a good house."
+text_instance = Text(text)
+
+print("Frequency of 'good':", text_instance.get_word_frequency('good'))  # Example of frequency
+print("Most common word(s):", text_instance.most_common_word())         # Example of most common word
+print("Unique words:", text_instance.unique_words())                # Example of unique words
+
+stranger_file = Text.from_file('the_stranger.txt')
+print("Most common word(s) in stranger file:", stranger_file.most_common_word())         # Example of most common word
+print("Unique words in stranger file:", stranger_file.unique_words())                # Example of unique words
