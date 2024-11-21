@@ -51,23 +51,3 @@ class MenuManager:
 
         # Return a list of MenuItem objects
         return [MenuItem(item[1], item[2]) for item in results]
-    
-burger = MenuItem('Burger', 35)
-beef_stew = MenuItem('Beef Stew', 40)
-noodles = MenuItem('Noodles', 20)
-
-#Save 3 menu items
-burger.save()
-beef_stew.save()
-noodles.save()
-
-# Delete noodles
-noodles.delete()
-
-#Change burger to veggie burger and change price
-burger.update('Veggie Burger', 37)
-
-#Fetch items
-item2 = MenuManager.get_by_name('Beef Stew')
-items = MenuManager.all_items()
-print(items)

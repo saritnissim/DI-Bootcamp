@@ -13,9 +13,11 @@ class MenuItem:
     def __init__(self, name, price):
         self.name = name
         self.price = price
-        
+    def __repr__(self):
+        return f"Name: {self.name} | Price: {self.price}"
+    
     @staticmethod
-    def _execute(query):
+    def _execute(query, params=None):
         connection = psycopg2.connect(
             database='restaurant_menu',  
             user='postgres',          
@@ -25,20 +27,23 @@ class MenuItem:
         )
         cursor = connection.cursor()
         
-        cursor.execute(query)
+        cursor.execute(query, params)
         connection.commit()
         
         cursor.close()
         connection.close()
     
     def save(self):
-       query = f"INSERT INTO menu_items (item_name, item_price) VALUES ('{self.name}', {self.price})"
-       self._execute(query)
+        query = f"INSERT INTO menu_items (item_name, item_price) VALUES (%s, %s)"
+        params = (self.name, self.price)
+        self._execute(query, params)
 
     def delete(self):
-        query = f"DELETE FROM menu_items WHERE item_name = '{self.name}' AND item_price = {self.price}"
-        self._execute(query)
+        query = f"DELETE FROM menu_items WHERE item_name = %s AND item_price = %s"
+        params = (self.name, self.price)
+        self._execute(query, params)
 
     def update(self, new_name, new_price):
-        query = f"UPDATE Menu_Items SET item_name = '{new_name}', item_price = {new_price} WHERE item_name = '{self.name} AND '"
+        query = f"UPDATE Menu_Items SET item_name = %s, item_price = %s WHERE item_name = %s"
+        params = (new_name, new_price, self.name)
         self._execute(query)
