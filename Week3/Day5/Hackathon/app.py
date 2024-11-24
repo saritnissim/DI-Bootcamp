@@ -41,18 +41,44 @@ class RelaxingSoundApp:
 
     
     def get_sound(self):
-        #Get user selection for sound        
-        for num, category in self.sound_player.sound_list.items():
-            print(f"{num}. {category}")
-        
-        index = int(input("Please enter the number of the sound you wish to listen to "))
-        sound = self.sound_player.sound_list[index] 
-        self.sound_player.play_sound(sound)
+        """Get user selection for sound"""
+        while True:  # Keep prompting until valid input is given
+            try:
+                # Display available sounds
+                print("Available sounds:")
+                for num, category in self.sound_player.sound_list.items():
+                    print(f"{num}. {category}")
+                
+                # Get user input
+                user_input = input("Please enter the number of the sound you wish to listen to: ")
+                
+                # Validate input
+                index = int(user_input)
+                if index not in self.sound_player.sound_list:
+                    print("Invalid selection. Please choose a valid number.")
+                    continue
+                
+                # Play the selected sound
+                sound = self.sound_player.sound_list[index]
+                self.sound_player.play_sound(sound)
+                break  # Exit the loop after successful playback
+
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
+                break  # Exit the loop on unexpected errors
+
 
     def save_favorite(self):
         """Save a favorite sound type."""
-        favorite_sound = input("Enter your favorite sound condition: ").lower()
-        self.sound_player.save_favorite_sound(self.username, favorite_sound)
+        while True:
+            favorite_sound = input("Enter your favorite sound condition: ").lower()
+            if favorite_sound not in self.sound_player.sounds_config:
+                    print("Invalid sound type. Please choose from the available sounds.")
+                    continue
+            self.sound_player.save_favorite_sound(self.username, favorite_sound)
+            break
 
     def play_favorite(self):
         """Play the user's favorite sound."""
