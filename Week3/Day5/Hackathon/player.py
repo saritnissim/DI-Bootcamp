@@ -13,6 +13,7 @@ class SoundPlayer:
         self.sounds_config = self.load_sounds_config()
         self.sound_list = {num: category for num, category in enumerate(self.sounds_config.keys(), 1)}
         self.db = DatabaseManager()
+        self.db.setup_database()
         pygame.mixer.init()  # Initialize the pygame mixer for playing sounds
 
     @staticmethod

@@ -39,7 +39,6 @@ class DatabaseManager:
                         )
                     """)
                     conn.commit()
-                    print("Database setup completed.")
         except psycopg2.Error as e:
             print(f"Database setup error: {e}")
     
