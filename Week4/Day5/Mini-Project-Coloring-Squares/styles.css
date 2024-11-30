@@ -1,0 +1,36 @@
+
+
+.color-palette {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.color-box {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+}
+
+#drawingBoard {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    margin: 0 auto;
+    width: 420px;
+    height: 420px;
+}
+
+.square {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+button {
+    display: block; 
+    margin: 20px auto; 
+}
+
