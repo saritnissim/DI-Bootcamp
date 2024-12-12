@@ -8,3 +8,4 @@ __pycache__/
 # Ignore environment variables file
 .env
 
+node_modules
