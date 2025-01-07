@@ -39,7 +39,7 @@ class DigitalLibrary extends Library {
     this.website = website;
   }
 
-  public listBooks(): string {
+  public listBooks(): void {
     console.log(this.getBooks())
   }
 }
