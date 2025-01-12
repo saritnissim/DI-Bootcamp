@@ -34,7 +34,7 @@ const UserList: React.FC = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p>{String(error)}</p>;
   }
 
   return (
